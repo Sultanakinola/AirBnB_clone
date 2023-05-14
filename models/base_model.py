@@ -36,14 +36,13 @@ class BaseModel:
                 if key != "__class__":
                     setattr(self, key, value)
 
-
     def __str__(self):
         """
         Prints class name, id and dictionary representation
         of the class.
         """
-        return("[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__))
-
+        return("[{}] ({}) {}"
+               .format(self.__class__.__name__, self.id, self.__dict__))
 
     def save(self):
         """
@@ -70,5 +69,5 @@ class BaseModel:
                 else:
                     new_dict[key] = values
         new_dict["__class__"] = self.__class__.__name__
-        
+
         return(new_dict)
