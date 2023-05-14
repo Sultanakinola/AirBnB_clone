@@ -41,8 +41,8 @@ class BaseModel:
         Prints class name, id and dictionary representation
         of the class.
         """
-        return("[{}] ({}) {}"
-               .format(self.__class__.__name__, self.id, self.__dict__))
+        return "[{}] ({}) {}".format(
+                self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
         """
@@ -70,4 +70,4 @@ class BaseModel:
                     new_dict[key] = values
         new_dict["__class__"] = self.__class__.__name__
 
-        return(new_dict)
+        return new_dict

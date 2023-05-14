@@ -199,8 +199,8 @@ class HBNBCommand(cmd.Cmd):
 
         if instance:
             key = objs.keys()
-            return([str(v) for k, v in objs.items() if k.startswith(instance)])
-        return([str(v) for k, v in objs.items()])
+            return [str(v) for k, v in objs.items() if k.startswith(instance)]
+        return [str(v) for k, v in objs.items()]
 
     def default(self, line):
         """Executes methods that are not defined"""
@@ -208,14 +208,11 @@ class HBNBCommand(cmd.Cmd):
             parts = re.split(r"\.|\(|\)", line)
             cls_name = parts[0]
             command = parts[1]
-            
             if cls_name in HBNBCommand.cls:
                 if command == "all":
                     print(self.get_obj(cls_name))
                 elif command == "count":
                     print(len(self.get_obj(cls_name)))
-
-
 
 
 if __name__ == "__main__":
