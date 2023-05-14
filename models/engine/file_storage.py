@@ -6,6 +6,12 @@ The `file_storage` module defines our file storage.
 
 from models.engine import file_storage
 from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 import json
 
 
@@ -15,6 +21,15 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
+    cls_dict = {
+            "BaseModel": BaseModel,
+            "User": User,
+            "Place": Place,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Review": Review
+            }
 
     def all(self):
         """
@@ -59,7 +74,9 @@ class FileStorage:
                     # Means assign[key] the class name of value and then
                     # unpack the values associated with the key (**value)
                     # and map it to the key.
-                    self.__objects[key] = eval(value["__class__"])(**value)
+                    obj = self.cls_dict[value["__class__"]](**value)
+                    self.__objects[key] = obj
+                    #self.__objects[key] = eval(value["__class__"])(**value)
 
         except FileNotFoundError:
             pass
