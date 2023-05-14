@@ -71,12 +71,8 @@ class FileStorage:
         try:
             with open(self.__file_path, "r", encoding="UTF-8") as file:
                 for key, value in json.load(file).items():
-                    # Means assign[key] the class name of value and then
-                    # unpack the values associated with the key (**value)
-                    # and map it to the key.
                     obj = self.cls_dict[value["__class__"]](**value)
                     self.__objects[key] = obj
-                    #self.__objects[key] = eval(value["__class__"])(**value)
 
         except FileNotFoundError:
             pass
