@@ -8,6 +8,7 @@ line interface which will be used for our
 
 import cmd
 import models
+import re
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
@@ -191,6 +192,30 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
         else:
             print("** value missing **")
+
+    def get_obj(self, instance=""):
+        """Gets the instance of a class"""
+        objs = storage.all()
+
+        if instance:
+            key = objs.keys()
+            return([str(v) for k, v in objs.items() if k.startswith(instance)])
+        return([str(v) for k, v in objs.items()])
+
+    def default(self, line):
+        """Executes methods that are not defined"""
+        if "." in line:
+            parts = re.split(r"\.|\(|\)", line)
+            cls_name = parts[0]
+            command = parts[1]
+            
+            if cls_name in HBNBCommand.cls:
+                if command == "all":
+                    print(self.get_obj(cls_name))
+                elif command == "count":
+                    print(len(self.get_obj(cls_name)))
+
+
 
 
 if __name__ == "__main__":
